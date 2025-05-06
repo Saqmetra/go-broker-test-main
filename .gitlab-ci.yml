@@ -1,0 +1,14 @@
+simage: golang:1.24-alpine
+
+before_script:
+  - apk add --no-cache gcc musl-dev
+  - go mod download
+
+stages:
+  - test
+
+test:
+  stage: test
+  script:
+    - go vet ./...
+    - go test -race -covermode=atomic ./...
